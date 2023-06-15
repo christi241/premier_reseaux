@@ -1,4 +1,5 @@
 <?php 
+session_start();
 include "db.php";
 if (isset($_POST['envoyer'])) {	
 	
@@ -12,7 +13,7 @@ if (isset($_POST['envoyer'])) {
 	while ($row= mysqli_fetch_assoc($req)) {
 		
 			if ($row['email'] == $email and  $row['password']== $motp) {
-			 $_SESSION['utilisateur'] = ["email"=>$_POST['email']];
+			 $_SESSION['utilisateur'] = ["email"=>$_POST['email'],"id"=>$row['id']];
 			 	header('location: index.php');
 			}else{
 				echo "email ou mot de passe incorrect";

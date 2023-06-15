@@ -1,3 +1,21 @@
+<?php 
+session_start();
+include "db.php";
+
+
+?>
+
+
+<link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN"
+        crossorigin="anonymous">
+        <link rel="stylesheet" href="index.css">
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+        crossorigin="anonymous"></script>
+ <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49"
+        crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy"
+        crossorigin="anonymous"></script>
+
 <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
 <link href="style_pro.css">
 <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
@@ -17,7 +35,7 @@
   <div class="collapse navbar-collapse" id="navbarSupportedContent">
     <ul class="navbar-nav mr-auto">
       <li class="nav-item active">
-        <a class="nav-link" href="#">
+        <a class="nav-link" href="index.php">
           <i class="fa fa-home"></i>
           Home
           <span class="sr-only">(current)</span>
@@ -39,20 +57,42 @@
       </li>
     </ul>
     <ul class="navbar-nav ">
+        <?php if (!$_SESSION["utilisateur"]) {
+            
+        ?>
       <li class="nav-item">
-        <a class="nav-link" href="#">
-          <i class="fa fa-bell">
-            <span class="badge badge-info">11</span>
+        <a class="nav-link" href="conexion.php">
+          <i class="fa fa-user">
+            
           </i>
           connexion
         </a>
       </li>
+      <?php }else{?>
+        <li class="nav-item">
+        <a class="nav-link" href="deconnexion.php">
+          <i class="fa fa-power-off">
+            
+          </i>
+          deconnexion
+        </a>
+      </li>
+      <?php }?>
+
       <li class="nav-item">
-        <a class="nav-link" href="#">
+        <a class="nav-link" href="inscription.php">
           <i class="fa fa-globe">
-            <span class="badge badge-success">52</span>
+            
           </i>
           inscription
+        </a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="profiles_utilisateur.php">
+          <i class="fa fa-user">
+            <span class="badge badge-success">52</span>
+          </i>
+          mon compte
         </a>
       </li>
     </ul>
@@ -62,6 +102,7 @@
     </form>
   </div>
 </nav>
+
 
 
 <div class="d-flex justify-content-center rounded">

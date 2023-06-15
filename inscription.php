@@ -9,10 +9,7 @@ if (isset($_POST['ajouter'])) {
   $nom=$_POST['nom'];
   $date_danniv=$_POST['date'];
   $motp=$_POST['motp'];
-  echo $email;
-  echo $nom;
-  echo $date_anniv;
-  echo $motp;
+
 
     if(!empty($nom) and !empty($email) and !empty($date_danniv) and !empty($motp)){
       $sql2= "INSERT INTO `users` (`id`, `username`, `password`, `email`, `date_aniv`, `created_at`) VALUES (NULL, '$nom', '$motp', '$email', '$date_danniv', current_timestamp())";

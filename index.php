@@ -3,34 +3,43 @@ session_start();
 include "db.php";
 
 
-
-
-if (isset($_post['ajouter'])) {
-    $req2= "SELECT * FROM `users`";
+if (isset($_POST['submit']) and !empty($_POST['media']) and !empty($_POST['img'])) {
+    
+    $req2= "SELECT * FROM users";
     $resp1=mysqli_query($conn,$req2);
-      $row1= mysqli_fetch_assoc($req2);
-    $media= $_post['media'];
-    $text=$_post['text'];
-    $img=$_FILES['media']['name'];
-  $dist="../images/image".$img;
-  move_uploaded_file($_FILES['media']['tmp_name'],$dist );
-    $ajout="INSERT INTO `posts` ( `author_id`, `media`, `text`, `created_at`) VALUES ('$id', '$mediat', '$img', 'current_timestamp()')";
-    $requet4 = mysqli_query($conn,$sql);
-    if($requet){
-        header('location: ../index.php');
-    }else {
-        echo "MAUVAIS INSERTION";
+    $row1= mysqli_fetch_assoc($req2);
+    while($row1= mysqli_fetch_assoc($req2)) {
+        if ($row1['id']==$_SESSION["id"]) {
+            $id= $row1['id'];
+        }
+       
     }
+   echo $id;
+    $media= $_POST['media'];
+    $img=$_FILES['img']['name'];
+  $dist="./images".$img;
+  move_uploaded_file($_FILES['img']['tmp_name'],$dist );
+
+        $sql="INSERT INTO `posts` (`id`, `author_id`, `media`, `text`, `created_at`) VALUES (NULL, '$id', '$media', '$img', current_timestamp())";
+        $requet4 = mysqli_query($conn,$sql);
+            if($requet4){
+                header('location: index.php');
+
+            }else {
+
+                echo "MAUVAIS INSERTION des post";
+
+            }
         
-
     
 
 
+}else {
 
-}else{
+    echo "rembplir tous les champs";
 
-    
 }
+
 
 
 ?>
@@ -58,7 +67,7 @@ if (isset($_post['ajouter'])) {
   <div class="collapse navbar-collapse" id="navbarSupportedContent">
     <ul class="navbar-nav mr-auto">
       <li class="nav-item active">
-        <a class="nav-link" href="#">
+        <a class="nav-link" href="index.php">
           <i class="fa fa-home"></i>
           Home
           <span class="sr-only">(current)</span>
@@ -80,24 +89,38 @@ if (isset($_post['ajouter'])) {
       </li>
     </ul>
     <ul class="navbar-nav ">
+        <?php if (!$_SESSION["utilisateur"]) {
+            
+        ?>
       <li class="nav-item">
         <a class="nav-link" href="conexion.php">
-          <i class="fa fa-bell">
-            <span class="badge badge-info">11</span>
+          <i class="fa fa-user">
+            
           </i>
           connexion
         </a>
       </li>
+      <?php }else{?>
+        <li class="nav-item">
+        <a class="nav-link" href="deconnexion.php">
+          <i class="fa fa-power-off">
+            
+          </i>
+          deconnexion
+        </a>
+      </li>
+      <?php }?>
+
       <li class="nav-item">
         <a class="nav-link" href="inscription.php">
           <i class="fa fa-globe">
-            <span class="badge badge-success">52</span>
+            
           </i>
           inscription
         </a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="#">
+        <a class="nav-link" href="profiles_utilisateur.php">
           <i class="fa fa-user">
             <span class="badge badge-success">52</span>
           </i>
@@ -120,7 +143,7 @@ if (isset($_post['ajouter'])) {
                 <div class="card">
                     <div class="card-body">
                         <div class="h5">@LeeCross</div>
-                        <div class="h7 text-muted">Fullname : Miracles Lee Cross</div>
+                        <div class="h7 text-muted">christopher</div>
                         <div class="h7">Developer of web applications, JavaScript, PHP, Java, Python, Ruby, Java, Node.js,
                             etc.
                         </div>
@@ -133,65 +156,41 @@ if (isset($_post['ajouter'])) {
             <!-- tous sur le code php pour l'ajout des post -->
 
                 <!--- \\\\\\\Post-->
-                <form  method="post" action="index.php"  enctype="multipart/form-data">
+               
                 <div class="card gedf-card">
-                    <div class="card-header">
-                        <ul class="nav nav-tabs card-header-tabs" id="myTab" role="tablist">
-                            <li class="nav-item">
-                                <a class="nav-link active" id="posts-tab" data-toggle="tab" href="#posts" role="tab" aria-controls="posts" aria-selected="true">Make
-                                    a publication</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" id="images-tab" data-toggle="tab" role="tab" aria-controls="images" aria-selected="false" href="#images">media</a>
-                            </li>
-                        </ul>
-                    </div>
-                    
-                    <div class="card-body">
-                        <div class="tab-content" id="myTabContent">
-                            <div class="tab-pane fade show active" id="posts" role="tabpanel" aria-labelledby="posts-tab">
-                                
-                                <div class="form-group">
-                                    <label class="sr-only" for="message">post</label>
-                                    <input type="textarea" class="form-control" id="message" rows="3" placeholder="What are you thinking?" name="text">
-                                </div>
-
-                            </div>
-                            <div class="tab-pane fade" id="images" role="tabpanel" aria-labelledby="images-tab">
-                                <div class="form-group">
-                                    <div class="custom-file">
-                                        <input type="file" class="custom-file-input" id="customFile" name="media"></a>
-                                        <label class="custom-file-label" for="customFile"> upload media</label>
-                                    </div>
-                                </div>
-                                <div class="py-4"></div>
-                            </div>
-                        </div>
-                        <div class="btn-toolbar justify-content-between">
-                            
-                            <div class="btn-group">
-                                <button type="submit" class="btn btn-primary" name="ajouter">faite un posts</button>
-                            </div>
-                            <div class="btn-group">
-                                <button id="btnGroupDrop1" type="button" class="btn btn-link dropdown-toggle" data-toggle="dropdown" aria-haspopup="true"
-                                    aria-expanded="false">
-                                    <i class="fa fa-globe">tous voir</i>
-                                </button>
-                                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="btnGroupDrop1">
-                                    <a class="dropdown-item" href="#"><i class="fa fa-globe"></i> Public</a>
-                                    <a class="dropdown-item" href="#"><i class="fa fa-users"></i> Friends</a>
-                                    <a class="dropdown-item" href="#"><i class="fa fa-user"></i> Just me</a>
-                                </div>
-                            </div>
-                        </div>
+                <div class="card-body">
+                <form  method="post" action="index.php" >
+                <div class="nb-3">
+                <label for="prix" class="form-label">commentaire</label>
+                <input type="text" class="form-control"  name="media" >
+                </div>
+                <div class="nb-3">
+                <label for="img" class="form-label">image</label>
+                <input type="file" class="form-control"  name="img" >
+                </div>
+                <br>
+                <div class="user-box">
+                </div>
+            <br>
+            <div class="nb-3">
+                <button type="submit" class="btn btn-success mb-3" name="submit">Confirm</button>
+                <button type="button" class="btn btn-danger mb-3" name="annulez">annulez</button>
+            </div>
+        </form>
                     </div>
                     
                 </div>
-                </form>
+                
                 <!-- Post /////-->
 
 
-
+                <?php
+                $req="SELECT *from posts";                                      
+                $result=mysqli_query($conn,$req);
+                if (!$_SESSION["utilisateur"]) {
+                    
+                while ($row= mysqli_fetch_assoc($result)) {
+                ?>
                 <!-- ITEM -->
                 <form  method="post" action="#" enctype="multipart/form-data">
                 <div class="card my-3">
@@ -203,10 +202,9 @@ if (isset($_post['ajouter'])) {
                                         </a>
                                         <div class="ml-3">
                                             <div class="h6 m-0">
-                                                <a href="#">Angel Miguel Tantarico Vela</a> a compartido <a href="#">Cuminidad
-                                                    Programadores peru masters</a>
+                                                <a href="#"></a> <?php echo $row['media']?> <a href="#"><?php echo $_SESSION["email"]?></a>
                                             </div>
-                                            <div class="text-muted h8">Hace 5 min <i class="fa fa-globe" aria-hidden="true"></i></div>
+                                            <div class="text-muted h8">Hace 5 miin <i class="fa fa-globe" aria-hidden="true"></i></div>
                                         </div>
                                     </div>
                                     <div class="dropdown">
@@ -231,7 +229,7 @@ if (isset($_post['ajouter'])) {
                                     <div>
 
                                     </div>
-                                    <div class="h7"> 3279 <a href="#"> comentarios</a> 44845 veces <a href="#">compartido</a></div>
+                                    <div class="h7"> 3279 <a href="#"><?php echo $row['media']?></a> 44845 veces <a href="#">compartido</a></div>
                                 </div>
                                 <div class="d-flex justify-content-between align-items-center my-1">
                                     <div class="col">
@@ -246,6 +244,10 @@ if (isset($_post['ajouter'])) {
                             </div>
                         </div>
                         </form>
+                        <?php } }else {
+                            
+                            while ($row= mysqli_fetch_assoc($result)) {  
+                        ?>
 
                 <!--- \\\\\\\Post-->
                 <form  method="post" action="#" enctype="multipart/form-data">
@@ -257,8 +259,8 @@ if (isset($_post['ajouter'])) {
                                     <img class="rounded-circle" width="45" src="https://picsum.photos/50/50" alt="">
                                 </div>
                                 <div class="ml-2">
-                                    <div class="h5 m-0">@LeeCross</div>
-                                    <div class="h7 text-muted">Miracles Lee Cross</div>
+                                    <div class="h5 m-0"><?php echo $_SESSION["email"]?></div>
+                                    <div class="h7 text-muted"><?php echo $row['media']?></div>
                                 </div>
                             </div>
                             <div>
@@ -267,7 +269,7 @@ if (isset($_post['ajouter'])) {
                                         <i class="fa fa-ellipsis-h"></i>
                                     </button>
                                     <div class="dropdown-menu dropdown-menu-right" aria-labelledby="gedf-drop1">
-                                        <div class="h6 dropdown-header">Configuration</div>
+                                        <div class="h6 dropdown-header"></div>
                                         <a class="dropdown-item" href="#">Save</a>
                                         <a class="dropdown-item" href="#">Hide</a>
                                         <a class="dropdown-item" href="#">Report</a>
@@ -301,6 +303,7 @@ if (isset($_post['ajouter'])) {
                     </div>
                 </div>
                 </form>
+                <?php } }?>
                 <!-- Post /////-->
             </div>
  

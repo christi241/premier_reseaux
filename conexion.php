@@ -15,19 +15,19 @@ if (isset($_POST['envoyer'])) {
 			if ($row['email'] == $email and  $row['password']== $motp) {
 			 $_SESSION['utilisateur'] = ["email"=>$_POST['email'],"id"=>$row['id']];
 			 	
-				 if ($_SESSION['utilisateur']) {
-					$nomUtilisateur = $_SESSION['email'];
+				 
+					$nomUtilisateur = $row['username'];
 					$dateConnexion = date('Y-m-d H:i:s');
 					
 					// Format de la ligne de journal
 					$logLine = "$nomUtilisateur,$dateConnexion\n";
 					
 					// Chemin du fichier de journal
-					$cheminFichier = './include/fichier_journal.txt';
+					$cheminFichier = "./includes/journal.txt";
 					
 					// Enregistrement de la ligne de journal dans le fichier
 					file_put_contents($cheminFichier, $logLine, FILE_APPEND);
-					}
+	
 					header('location: index.php');
 			}else{
 				echo "email ou mot de passe incorrect";

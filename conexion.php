@@ -10,10 +10,11 @@ if (isset($_POST['envoyer'])) {
 	$sql= "SELECT * FROM users";
 	$req=mysqli_query($conn,$sql);
 	$row= mysqli_fetch_assoc($req);
+	
 	while ($row= mysqli_fetch_assoc($req)) {
 		
 			if ($row['email'] == $email and  $row['password']== $motp) {
-			 $_SESSION['utilisateur'] = ["email"=>$_POST['email'],"id"=>$row['id']];
+			 $_SESSION['utilisateur'] = ["email"=>$_POST['email'],"id"=>$row['id'],"nom"=>$Row['username']];
 			 	
 				 
 					$nomUtilisateur = $row['username'];

@@ -150,9 +150,12 @@ if (isset($_POST['submit']) and !empty($_POST['media']) and !empty($_POST['img']
             <!-- tous sur le code php pour l'ajout des post -->
 
                 <!--- \\\\\\\Post-->
-               
+               <?php  if ($_SESSION["utilisateur"]) {
+                # code...
+               ?>
                 <div class="card gedf-card">
                 <div class="card-body">
+                    <h1>faite des poste MR <?php  $row3['username'];?></h1>
                 <form  method="post" action="index.php" >
                 <div class="nb-3">
                 <label for="prix" class="form-label">commentaire</label>
@@ -174,16 +177,20 @@ if (isset($_POST['submit']) and !empty($_POST['media']) and !empty($_POST['img']
                     </div>
                     
                 </div>
-                
+                <?php }?>
                 <!-- Post /////-->
 
 
                 <?php
                 $req="SELECT *from posts";                                      
                 $result=mysqli_query($conn,$req);
+
+                $sqla= "SELECT * FROM users";
+	            $req=mysqli_query($conn,$sqla);
+	            
                 if (!$_SESSION["utilisateur"]) {
                     
-                while ($row= mysqli_fetch_assoc($result)) {
+                while ($row= mysqli_fetch_assoc($result) and $row3= mysqli_fetch_assoc($req)) {
                 ?>
                 <!-- ITEM -->
                 <form  method="post" action="#" enctype="multipart/form-data">
@@ -196,7 +203,7 @@ if (isset($_POST['submit']) and !empty($_POST['media']) and !empty($_POST['img']
                                         </a>
                                         <div class="ml-3">
                                             <div class="h6 m-0">
-                                                <a href="#"></a> <?php echo $row['media']?> <a href="#"><?php echo $_SESSION["email"]?></a>
+                                                <a href="#"></a> <?php echo $row3['username']?> <a href="#"><?php echo $_SESSION["email"]?></a>
                                             </div>
                                             <div class="text-muted h8">Hace 5 miin <i class="fa fa-globe" aria-hidden="true"></i></div>
                                         </div>
@@ -240,7 +247,7 @@ if (isset($_POST['submit']) and !empty($_POST['media']) and !empty($_POST['img']
                         </form>
                         <?php } }else {
                             
-                            while ($row= mysqli_fetch_assoc($result)) {  
+                            while ($row= mysqli_fetch_assoc($result) and $row3= mysqli_fetch_assoc($req)) {  
                         ?>
 
                 <!--- \\\\\\\Post-->
@@ -253,8 +260,8 @@ if (isset($_POST['submit']) and !empty($_POST['media']) and !empty($_POST['img']
                                     <img class="rounded-circle" width="45" src="https://picsum.photos/50/50" alt="">
                                 </div>
                                 <div class="ml-2">
-                                    <div class="h5 m-0"><?php echo $_SESSION["email"]?></div>
-                                    <div class="h7 text-muted"><?php echo $row['media']?></div>
+                                    <div class="h5 m-0"><?php echo $row3['username']?></div>
+                                    <div class="h7 text-muted"></div>
                                 </div>
                             </div>
                             <div>
@@ -263,7 +270,7 @@ if (isset($_POST['submit']) and !empty($_POST['media']) and !empty($_POST['img']
                                         <i class="fa fa-ellipsis-h"></i>
                                     </button>
                                     <div class="dropdown-menu dropdown-menu-right" aria-labelledby="gedf-drop1">
-                                        <div class="h6 dropdown-header"></div>
+                                        <div class="h6 dropdown-header"><?php echo $row['media']?></div>
                                         <a class="dropdown-item" href="#">Save</a>
                                         <a class="dropdown-item" href="#">Hide</a>
                                         <a class="dropdown-item" href="#">Report</a>

@@ -1,0 +1,171 @@
+<link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+<link href="style_pro.css">
+<script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<!------ Include the above in your HEAD tag ---------->
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/MaterialDesign-Webfont/4.4.95/css/materialdesignicons.css">
+<link rel="stylesheet" href="style.css">
+
+
+<nav class="navbar navbar-icon-top navbar-expand-lg navbar-dark bg-dark">
+  <a class="navbar-brand" href="#">resauxMANGO</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item active">
+        <a class="nav-link" href="#">
+          <i class="fa fa-home"></i>
+          Home
+          <span class="sr-only">(current)</span>
+          </a>
+      </li>
+      <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          <i class="fa fa-envelope-o">
+            <span class="badge badge-primary">13</span>
+          </i>
+          Dropdown
+        </a>
+        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+          <a class="dropdown-item" href="#">Action</a>
+          <a class="dropdown-item" href="#">Another action</a>
+          <div class="dropdown-divider"></div>
+          <a class="dropdown-item" href="#">Something else here</a>
+        </div>
+      </li>
+    </ul>
+    <ul class="navbar-nav ">
+      <li class="nav-item">
+        <a class="nav-link" href="#">
+          <i class="fa fa-bell">
+            <span class="badge badge-info">11</span>
+          </i>
+          connexion
+        </a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="#">
+          <i class="fa fa-globe">
+            <span class="badge badge-success">52</span>
+          </i>
+          inscription
+        </a>
+      </li>
+    </ul>
+    <form class="form-inline my-2 my-lg-0">
+      <input class="form-control mr-sm-2" type="text" placeholder="Search" aria-label="Search">
+      <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+    </form>
+  </div>
+</nav>
+
+
+<div class="d-flex justify-content-center rounded">
+			<div class="image_outer_container">
+				<div class="green_icon"></div>
+				<div class="image_inner_container">
+					<img src="https://i.pinimg.com/originals/43/96/61/439661dcc0d410d476d6d421b1812540.jpg">
+				</div>
+			</div>
+		</div>
+	</div>
+
+		<!-- partial -->
+		<div class="main-panel">
+			<div class="container">
+
+
+				<div class="row">
+					<div class="col-md-4 grid-margin stretch-card">
+						<div class="card">
+							<div class="profile-card">
+
+								<div class="profile-header">
+
+									<div class="cover-image">
+										<img src="https://cdn.pixabay.com/photo/2019/10/19/14/16/away-4561518_960_720.jpg" class="img img-fluid">
+									</div>
+									<div class="user-image">
+										<img src="./images/apple.jpg" class="img ">
+									</div>
+								</div>
+
+								<div class="profile-content">
+									<div class="profile-name">Santosh Ghimire</div>
+									<div class="profile-designation">Webdeveloper</div>
+									<p class="profile-description">Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor.</p>
+									<ul class="profile-info-list">
+										<a href="" class="profile-info-list-item"><i class="mdi mdi-eye"></i>Timeline</a>
+										<a href="" class="profile-info-list-item"><i class="mdi mdi-bookmark-check"></i>Saved</a>
+										<a href="" class="profile-info-list-item"><i class="mdi mdi-movie"></i>Medias</a>
+										<a href="" class="profile-info-list-item"><i class="mdi mdi-account"></i>About</a>
+
+									</ul>
+								</div>
+							</div>
+						</div>
+					</div>
+
+					<div class="col-md-8 grid-margin stretch-card">
+						<div class="card">
+							<div class="card-body">
+								<p class="card-title font-weight-bold">About</p>
+								<hr>
+								<p class="card-description">User Information</p>
+								<ul class="about">
+									<li class="about-items"><i class="mdi mdi-account icon-sm "></i><span class="about-item-name">Name:</span><span class="about-item-detail">Santosh Ghimire</span><a href="" class="about-item-edit">Edit</a></li>
+									<li class="about-items"><i class="mdi mdi-mail-ru icon-sm "></i><span class="about-item-name">username:</span><span class="about-item-detail">santoshghimire</span> <a href="" class="about-item-edit">Edit</a></li>
+									<li class="about-items"><i class="mdi mdi-lock-outline icon-sm "></i><span class="about-item-name">Password:</span><span class="about-item-detail">**********</span> <a href="" class="about-item-edit">Edit</a></li>
+									<li class="about-items"><i class="mdi mdi-format-align-left icon-sm "></i><span class="about-item-name">Bio:</span><span class="about-item-detail">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Architecto totam, nemo quidem delectus dolores vero porro inventore perferendis minus perspiciatis.</span> <a href="" class="about-item-edit">Edit</a></li>
+
+                       <li class="about-items"><i class="mdi mdi-trophy-variant-outline icon-sm "></i><span class="about-item-name">Badges:</span><span class="about-item-detail">
+                       <button type="button" class="btn btn-success btn-rounded btn-icon">
+                        <i class="mdi mdi-star text-white"></i>
+                      </button>  
+                        <button type="button" class="btn btn-info btn-rounded btn-icon">
+                        <i class="mdi mdi-check text-white"></i>
+                      </button>
+                       <button type="button" class="btn btn-danger btn-rounded btn-icon">
+                        <i class="mdi mdi-check text-white"></i>
+                      </button>
+                      </span> <a href="" class="about-item-edit">View</a></li>
+
+								</ul>
+								<p class="card-description">Contact Information</p>
+								<ul class="about">
+									<li class="about-items"><i class="mdi mdi-phone icon-sm "></i><span class="about-item-name">Phone:</span><span class="about-item-detail">+9779861106179</span><a href="" class="about-item-edit">Edit</a></li>
+									<li class="about-items"><i class="mdi mdi-map-marker icon-sm "></i><span class="about-item-name">Address:</span><span class="about-item-detail">254 National Highway , Hisar India</span> <a href="" class="about-item-edit">Edit</a></li>
+									<li class="about-items"><i class="mdi mdi-email-outline icon-sm "></i><span class="about-item-name">Email:</span><span class="about-item-detail"><a href="">reasonghimire706@gmail.com</a></span> <a href="" class="about-item-edit">Edit</a></li>
+									<li class="about-items"><i class="mdi mdi-web icon-sm "></i><span class="about-item-name">Site:</span><span class="about-item-detail"><a href="google.com">www.google.com</a></span> <a href="" class="about-item-edit">Edit</a></li>
+								</ul>
+								<p class="card-description">Basic Information</p>
+								<ul class="about">
+									<li class="about-items"><i class="mdi mdi-cake icon-sm "></i><span class="about-item-name">Birthday:</span><span class="about-item-detail">Aug 3 , 1998</span><a href="" class="about-item-edit">Edit</a></li>
+									<li class="about-items"><i class="mdi mdi-account icon-sm "></i><span class="about-item-name">Gender:</span><span class="about-item-detail">Male</span> <a href="" class="about-item-edit">Edit</a></li>
+									<li class="about-items"><i class="mdi mdi-clipboard-account icon-sm "></i><span class="about-item-name">Profession:</span><span class="about-item-detail">Student</span> <a href="" class="about-item-edit">Edit</a></li>
+									<li class="about-items"><i class="mdi mdi-water icon-sm "></i><span class="about-item-name">Blood Group:</span><span class="about-item-detail">AB+</span> <a href="" class="about-item-edit">Edit</a></li>
+									<li class="about-items"><i class="mdi mdi-human-male-female icon-sm "></i><span class="about-item-name">Relationship Status:</span><span class="about-item-detail">Single</span> <a href="" class="about-item-edit">Edit</a></li>
+								</ul>
+
+
+							</div>
+						</div>
+					</div>
+
+				</div>
+
+
+
+
+			</div>
+			<!-- content-wrapper ends -->
+			<!-- partial:partials/_footer.html -->
+
+			<?php //include'includes/admin_footer.php' ?>
+			<!-- partial -->
+		</div>
+		<!-- main-panel ends -->

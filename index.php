@@ -7,36 +7,30 @@ if (isset($_POST['submit']) and !empty($_POST['media']) and !empty($_POST['img']
     
     $req2= "SELECT * FROM users";
     $resp1=mysqli_query($conn,$req2);
-    $row1= mysqli_fetch_assoc($req2);
-    while($row1= mysqli_fetch_assoc($req2)) {
+    $row1= mysqli_fetch_assoc($resp1);
+    while($row1= mysqli_fetch_assoc($resp1)) {
         if ($row1['id']==$_SESSION["id"]) {
             $id= $row1['id'];
         }
        
     }
-   echo $id;
+   
     $media= $_POST['media'];
     $img=$_FILES['img']['name'];
   $dist="./images".$img;
   move_uploaded_file($_FILES['img']['tmp_name'],$dist );
-
-        $sql="INSERT INTO `posts` (`id`, `author_id`, `media`, `text`, `created_at`) VALUES (NULL, '$id', '$media', '$img', current_timestamp())";
-        $requet4 = mysqli_query($conn,$sql);
-            if($requet4){
+  $bon="INSERT INTO `posts` ( `author_id`, `media`, `text`, `created_at`) VALUES ( '$id', '$media', '$img', current_timestamp())";
+  $requet4 = mysqli_query($conn,$bon);
+     if($requet4){
                 header('location: index.php');
 
-            }else {
+    }else {
+     echo "MAUVAIS INSERTION des post";
 
-                echo "MAUVAIS INSERTION des post";
-
-            }
+     }
         
     
 
-
-}else {
-
-    echo "rembplir tous les champs";
 
 }
 

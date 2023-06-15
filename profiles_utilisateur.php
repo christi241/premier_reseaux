@@ -203,10 +203,5 @@ include "db.php";
 
 
 			</div>
-			<!-- content-wrapper ends -->
-			<!-- partial:partials/_footer.html -->
-
-			<?php //include'includes/admin_footer.php' ?>
-			<!-- partial -->
 		</div>
-		<!-- main-panel ends -->
+		

@@ -17,7 +17,18 @@ if (isset($_POST['ajouter'])) {
       
       if ($resultat) {
              $_SESSION['utilisateur'] = ["email"=>$_POST['mail'] , "nom" =>$_POST['nom'], "pssword"=>$_POST['motp']];
+             $nomUtilisateur = $_POST['nom'];
+            $email = $_POST['email'];
+
+            $dataLine = "$nomUtilisateur,$email\n"; // Modifiez le format selon vos besoins
+
+            // Chemin du fichier d'enregistrement des utilisateurs
+            $cheminFichier = './includes/tous_inscrit.txt'; // Modifiez le chemin selon vos besoins
+
+            // Enregistrer les données d'inscription dans le fichier
+            file_put_contents($cheminFichier, $dataLine, FILE_APPEND);      
           header('location:index.php');
+
 
       }else{
 

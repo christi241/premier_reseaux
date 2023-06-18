@@ -1,6 +1,6 @@
 <?php 
 session_start();
-include "db.php";
+include "../model/db.php";
 if (isset($_POST['envoyer'])) {	
 	
 	if(!empty($_POST['email']) and !empty($_POST['motp'])){
@@ -15,7 +15,7 @@ if (isset($_POST['envoyer'])) {
 		
 			if ($row['email'] == $email and  $row['password']== $motp) {
 			 $_SESSION['utilisateur'] = ["email"=>$_POST['email'],"id"=>$row['id'],"nom"=>$Row['username']];
-			 	
+			 	$idu=$row['id'];
 				 
 					$nomUtilisateur = $row['username'];
 					$dateConnexion = date('Y-m-d H:i:s');
@@ -24,12 +24,12 @@ if (isset($_POST['envoyer'])) {
 					$logLine = "$nomUtilisateur,$dateConnexion\n";
 					
 					// Chemin du fichier de journal
-					$cheminFichier = "./includes/journal.txt";
+					$cheminFichier = "../includes/journal.txt";
 					
 					// Enregistrement de la ligne de journal dans le fichier
 					file_put_contents($cheminFichier, $logLine, FILE_APPEND);
 	
-					header('location: index.php');
+					header('location: ../index.php');
 			}else{
 				echo "email ou mot de passe incorrect";
 			}
@@ -47,14 +47,14 @@ if (isset($_POST['envoyer'])) {
 <head>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<link rel="stylesheet" type="text/css" href="style1.css">
+	<link rel="stylesheet" type="text/css" href="../style1.css">
   <link rel="stylesheet" href="bootstrap/dist/css/bootstrap.min.css">
 	<title></title>
 </head>
 <body>
 	<div class="login-box">
   <h2>connexion</h2> 
-  <form action="conexion.php" method="POST">
+  <form action="./conexion.php" method="POST">
    
 	<div class="user-box">
       <input type="text" name="email"  >

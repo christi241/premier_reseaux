@@ -1,6 +1,6 @@
 <?php
 session_start();
-require_once "db.php";
+include "../model/db.php";
 
 
 if (isset($_POST['ajouter'])) {
@@ -16,18 +16,28 @@ if (isset($_POST['ajouter'])) {
       $resultat = mysqli_query($conn,$sql2);
       
       if ($resultat) {
+
              $_SESSION['utilisateur'] = ["email"=>$_POST['mail'] , "nom" =>$_POST['nom'], "pssword"=>$_POST['motp']];
              $nomUtilisateur = $_POST['nom'];
+
             $email = $_POST['email'];
+            $id_u="SELECT id FROM users";
+            $R = mysqli_query($conn,$id_u);
+            
+            if ($ligne=mysqli_fetch_assoc($R)) {
+                $idU=$ligne;
+                echo $idu;
+                $_SESSION['utilisateur']= ["id"=>$idu];
+            }
 
             $dataLine = "$nomUtilisateur,$email\n"; // Modifiez le format selon vos besoins
 
             // Chemin du fichier d'enregistrement des utilisateurs
-            $cheminFichier = './includes/tous_inscrit.txt'; // Modifiez le chemin selon vos besoins
+            $cheminFichier = '../includes/tous_inscrit.txt'; // Modifiez le chemin selon vos besoins
 
             // Enregistrer les données d'inscription dans le fichier
             file_put_contents($cheminFichier, $dataLine, FILE_APPEND);      
-          header('location:index.php');
+          header('location:../index.php');
 
 
       }else{
@@ -71,7 +81,7 @@ if (isset($_POST['ajouter'])) {
                             <div style="float:right; font-size: 85%; position: relative; top:-10px"><a id="signinlink" href="#" onclick="$('#signupbox').hide(); $('#loginbox').show()">Sign In</a></div>
                         </div>  
                         <div class="panel-body" >
-                            <form id="signupform" class="form-horizontal" role="form" method="POST" action="inscription.php">
+                            <form id="signupform" class="form-horizontal" role="form" method="POST" action="./inscription.php">
                                 
                                 <div id="signupalert" style="display:none" class="alert alert-danger">
                                     <p>Error:</p>

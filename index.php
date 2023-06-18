@@ -1,31 +1,27 @@
 <?php 
 session_start();
-include "db.php";
-
+include "./model/db.php";
+$req2= "SELECT * FROM users";
+    $resp1=mysqli_query($conn,$req2);
+    
 
 if (isset($_POST['submit']) and !empty($_POST['media']) and !empty($_POST['img'])) {
     
-    $req2= "SELECT * FROM users";
-    $resp1=mysqli_query($conn,$req2);
-    $row1= mysqli_fetch_assoc($resp1);
-    while($row1= mysqli_fetch_assoc($resp1)) {
-        if ($row1['id']==$_SESSION["id"]) {
-            $id= $row1['id'];
-        }
-       
-    }
-   
+    $idu=$_SESSION['id'];
+    echo $idu;
+  
     $media= $_POST['media'];
     $img=$_FILES['img']['name'];
   $dist="./images".$img;
   move_uploaded_file($_FILES['img']['tmp_name'],$dist );
-  $bon="INSERT INTO `posts` ( `author_id`, `media`, `text`, `created_at`) VALUES ( '$id', '$media', '$img', current_timestamp())";
+  $bon="INSERT INTO `posts`(`id`, `author_id`, `media`, `text`, `created_at`) VALUES (NULL,'$idu','$media','$img',current_timestamp())";
   $requet4 = mysqli_query($conn,$bon);
      if($requet4){
                 header('location: index.php');
 
     }else {
      echo "MAUVAIS INSERTION des post";
+     
 
      }
         
@@ -61,7 +57,7 @@ if (isset($_POST['submit']) and !empty($_POST['media']) and !empty($_POST['img']
   <div class="collapse navbar-collapse" id="navbarSupportedContent">
     <ul class="navbar-nav mr-auto">
       <li class="nav-item active">
-        <a class="nav-link" href="index.php">
+        <a class="nav-link" href="./index.php">
           <i class="fa fa-home"></i>
           Home
           <span class="sr-only">(current)</span>
@@ -87,7 +83,7 @@ if (isset($_POST['submit']) and !empty($_POST['media']) and !empty($_POST['img']
             
         ?>
       <li class="nav-item">
-        <a class="nav-link" href="conexion.php">
+        <a class="nav-link" href="./view/conexion.php">
           <i class="fa fa-user">
             
           </i>
@@ -96,7 +92,7 @@ if (isset($_POST['submit']) and !empty($_POST['media']) and !empty($_POST['img']
       </li>
       <?php }else{?>
         <li class="nav-item">
-        <a class="nav-link" href="deconnexion.php">
+        <a class="nav-link" href="./view/deconnexion.php">
           <i class="fa fa-power-off">
             
           </i>
@@ -106,7 +102,7 @@ if (isset($_POST['submit']) and !empty($_POST['media']) and !empty($_POST['img']
       <?php }?>
 
       <li class="nav-item">
-        <a class="nav-link" href="inscription.php">
+        <a class="nav-link" href="./view/inscription.php">
           <i class="fa fa-globe">
             
           </i>
@@ -114,7 +110,7 @@ if (isset($_POST['submit']) and !empty($_POST['media']) and !empty($_POST['img']
         </a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="profiles_utilisateur.php">
+        <a class="nav-link" href="./view/profiles_utilisateur.php">
           <i class="fa fa-user">
             <span class="badge badge-success">52</span>
           </i>
@@ -155,7 +151,7 @@ if (isset($_POST['submit']) and !empty($_POST['media']) and !empty($_POST['img']
                ?>
                 <div class="card gedf-card">
                 <div class="card-body">
-                    <h1>faite des poste MR <?php  $row3['username'];?></h1>
+                    <h1 class="text-center">faite des poste </h1>
                 <form  method="post" action="index.php" >
                 <div class="nb-3">
                 <label for="prix" class="form-label">commentaire</label>
@@ -185,12 +181,11 @@ if (isset($_POST['submit']) and !empty($_POST['media']) and !empty($_POST['img']
                 $req="SELECT *from posts";                                      
                 $result=mysqli_query($conn,$req);
 
-                $sqla= "SELECT * FROM users";
-	            $req=mysqli_query($conn,$sqla);
+                
 	            
                 if (!$_SESSION["utilisateur"]) {
                     
-                while ($row= mysqli_fetch_assoc($result) and $row3= mysqli_fetch_assoc($req)) {
+                while ($row= mysqli_fetch_assoc($result) and $row1= mysqli_fetch_assoc($resp1)) {
                 ?>
                 <!-- ITEM -->
                 <form  method="post" action="#" enctype="multipart/form-data">
@@ -216,11 +211,12 @@ if (isset($_POST['submit']) and !empty($_POST['media']) and !empty($_POST['img']
                                             <a class="dropdown-item" href="#">Another action</a>
                                             <a class="dropdown-item" href="#">Something else here</a>
                                         </div>
+                                        
                                     </div>
                                 </div>
                             </div>
 
-                            <div class="card-body pt-0 pb-2">
+                            <div class="card-body pt-0 pb-2"><?php echo $row['media']?>
                                 La fuerza es el único lenguaje que el mal entiende. ¡Derrota monstruos para conseguir
                                 muchas recompensas!
                             </div>
@@ -230,24 +226,24 @@ if (isset($_POST['submit']) and !empty($_POST['media']) and !empty($_POST['img']
                                     <div>
 
                                     </div>
-                                    <div class="h7"> 3279 <a href="#"><?php echo $row['media']?></a> 44845 veces <a href="#">compartido</a></div>
+                                    <div class="h7"> 3279 <a href="#"></a> 44845 veces <a href="#">compartido</a></div>
                                 </div>
                                 <div class="d-flex justify-content-between align-items-center my-1">
                                     <div class="col">
-                                        <button type="button" class="btn btn-fbook btn-block btn-sm"> <i class="fa fa-thumbs-up"
-                                                aria-hidden="true"></i> Me gusta</button>
+                                       <a href="#?id=<?php echo $row['author_id']; ?>" > <button type="button" class="btn btn-fbook btn-block btn-sm"> <i class="fa fa-thumbs-up"
+                                                aria-hidden="true"></i>j'aime</button></a>
                                     </div>
-                                    <div class="col">
-                                        <button type="button" class="btn btn-fbook btn-block btn-sm"><i class="fa fa-comment"
-                                                aria-hidden="true"></i> Comentar</button>
-                                    </div>
+                                   
                                 </div>
                             </div>
+                            
+                 <textarea class="form-control " placeholder="Votre texte" name="messageaide" id="messg" cols="10" rows=""></textarea>
+                 <a href="#?id=<?php echo $row['author_id']; ?>" class="card-link"><i class="fa fa-send"></i> Comment</a>
                         </div>
                         </form>
                         <?php } }else {
                             
-                            while ($row= mysqli_fetch_assoc($result) and $row3= mysqli_fetch_assoc($req)) {  
+                            while ($row= mysqli_fetch_assoc($result) and $row3= mysqli_fetch_assoc($resp1)) {  
                         ?>
 
                 <!--- \\\\\\\Post-->
@@ -270,7 +266,7 @@ if (isset($_POST['submit']) and !empty($_POST['media']) and !empty($_POST['img']
                                         <i class="fa fa-ellipsis-h"></i>
                                     </button>
                                     <div class="dropdown-menu dropdown-menu-right" aria-labelledby="gedf-drop1">
-                                        <div class="h6 dropdown-header"><?php echo $row['media']?></div>
+                                        <div class="h6 dropdown-header"></div>
                                         <a class="dropdown-item" href="#">Save</a>
                                         <a class="dropdown-item" href="#">Hide</a>
                                         <a class="dropdown-item" href="#">Report</a>
@@ -290,7 +286,7 @@ if (isset($_POST['submit']) and !empty($_POST['media']) and !empty($_POST['img']
                             <img class="card-img-top rounded-0" src="https://picsum.photos/320/250/?random?image=1" alt="Card image cap">
                         </div>
 
-                        <p class="card-text">
+                        <p class="card-text"><?php echo $row['media']?>
                             Lorem ipsum dolor sit amet consectetur adipisicing elit. Ipsam sunt fugit reprehenderit consectetur exercitationem odio,
                             quam nobis? Officiis, similique, harum voluptate, facilis voluptas pariatur dolorum tempora sapiente
                             eius maxime quaerat.
@@ -298,16 +294,19 @@ if (isset($_POST['submit']) and !empty($_POST['media']) and !empty($_POST['img']
                         </p>
                     </div>
                     <div class="card-footer">
-                        <a href="#" class="card-link"><i class="fa fa-gittip"></i> Like</a>
-                        <a href="#" class="card-link"><i class="fa fa-comment"></i> Comment</a>
-                        <a href="#" class="card-link"><i class="fa fa-mail-forward"></i> Share</a>
+                        <a href="#?id=<?php echo $row['author_id']; ?>" class="card-link"><i class="fa fa-gittip"></i> Like</a>
+                        
+                        <a href="#?id=<?php echo $row['author_id']; ?>" class="card-link"><i class="fa fa-mail-forward"></i> Share</a>
                     </div>
+                 <textarea class="form-control " placeholder="Votre texte" name="messageaide" id="messg" cols="10" rows=""></textarea>
+                 <a href="#?id=<?php echo $row['author_id']; ?>" class="card-link"><i class="fa fa-send"></i> Comment</a>
+                                         
                 </div>
                 </form>
                 <?php } }?>
                 <!-- Post /////-->
             </div>
- 
+
             <div class="col-md-3">
                 <div class="card gedf-card">
                     <div class="card-body">

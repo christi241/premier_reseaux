@@ -1,6 +1,6 @@
 <?php 
 session_start();
-include "db.php";
+include "../model/db.php";
 
 
 ?>
@@ -23,7 +23,7 @@ include "db.php";
 <!------ Include the above in your HEAD tag ---------->
 
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/MaterialDesign-Webfont/4.4.95/css/materialdesignicons.css">
-<link rel="stylesheet" href="style.css">
+<link rel="stylesheet" href="../style.css">
 
 
 <nav class="navbar navbar-icon-top navbar-expand-lg navbar-dark bg-dark">
@@ -35,7 +35,7 @@ include "db.php";
   <div class="collapse navbar-collapse" id="navbarSupportedContent">
     <ul class="navbar-nav mr-auto">
       <li class="nav-item active">
-        <a class="nav-link" href="index.php">
+        <a class="nav-link" href="../index.php">
           <i class="fa fa-home"></i>
           Home
           <span class="sr-only">(current)</span>
@@ -109,7 +109,7 @@ include "db.php";
 			<div class="image_outer_container">
 				<div class="green_icon"></div>
 				<div class="image_inner_container">
-					<img src="https://i.pinimg.com/originals/43/96/61/439661dcc0d410d476d6d421b1812540.jpg">
+					<img src="https://picsum.photos/320/250/?random?image=1">
 				</div>
 			</div>
 		</div>

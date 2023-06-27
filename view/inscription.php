@@ -17,15 +17,14 @@ if (isset($_POST['ajouter'])) {
       
       if ($resultat) {
 
-             $_SESSION['utilisateur'] = ["email"=>$_POST['mail'] , "nom" =>$_POST['nom'], "pssword"=>$_POST['motp']];
-             $nomUtilisateur = $_POST['nom'];
+             $_SESSION['utilisateur'] = ["email"=>$_POST['mail'] , "nom" =>$_POST['nom'], "pasword"=>$_POST['motp']];
+             
 
-            $email = $_POST['email'];
-            $id_u="SELECT id FROM users";
+            $id_u="SELECT id FROM users where email==$email";
             $R = mysqli_query($conn,$id_u);
             
             if ($ligne=mysqli_fetch_assoc($R)) {
-                $idU=$ligne;
+                $idU=$ligne['id'];
                 echo $idu;
                 $_SESSION['utilisateur']= ["id"=>$idu];
             }

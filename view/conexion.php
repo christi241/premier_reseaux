@@ -15,7 +15,7 @@ if (isset($_POST['envoyer'])) {
 		
 			if ($row['email'] == $email and  $row['password']== $motp) {
 			 $_SESSION['utilisateur'] = ["email"=>$_POST['email'],"id"=>$row['id'],"nom"=>$Row['username']];
-			 	$idu=$row['id'];
+			
 				 
 					$nomUtilisateur = $row['username'];
 					$dateConnexion = date('Y-m-d H:i:s');
@@ -31,7 +31,7 @@ if (isset($_POST['envoyer'])) {
 	
 					header('location: ../index.php');
 			}else{
-				echo "email ou mot de passe incorrect";
+				$message="email ou mot de passe incorrect";
 			}
 	}
 	}
@@ -39,7 +39,7 @@ if (isset($_POST['envoyer'])) {
 }
 
 
-
+echo $message;
  ?>
 
  <!DOCTYPE html>

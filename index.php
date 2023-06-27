@@ -1,26 +1,24 @@
 <?php 
 session_start();
 include "./model/db.php";
-$req2= "SELECT * FROM users";
-    $resp1=mysqli_query($conn,$req2);
+    $idu= $_SESSION["utilisateur"]["id"];
+   
     
-
-if (isset($_POST['submit']) and !empty($_POST['media']) and !empty($_POST['img'])) {
     
-    $idu=$_SESSION['id'];
-    echo $idu;
   
+if (isset($_POST['submit'])) {  
     $media= $_POST['media'];
     $img=$_FILES['img']['name'];
-  $dist="./images".$img;
-  move_uploaded_file($_FILES['img']['tmp_name'],$dist );
-  $bon="INSERT INTO `posts`(`id`, `author_id`, `media`, `text`, `created_at`) VALUES (NULL,'$idu','$media','$img',current_timestamp())";
+    $dist="./images".$img;
+    move_uploaded_file($_FILES['img']['tmp_name'],$dist);
+  
+  $bon="INSERT INTO posts (author_id, media, image, `created_at`) VALUES ('$idu','$media','$img',current_timestamp())";
   $requet4 = mysqli_query($conn,$bon);
      if($requet4){
                 header('location: index.php');
-
+              
     }else {
-     echo "MAUVAIS INSERTION des post";
+     echo "pots pas introduit";
      
 
      }
@@ -152,23 +150,23 @@ if (isset($_POST['submit']) and !empty($_POST['media']) and !empty($_POST['img']
                 <div class="card gedf-card">
                 <div class="card-body">
                     <h1 class="text-center">faite des poste </h1>
-                <form  method="post" action="index.php" >
-                <div class="nb-3">
-                <label for="prix" class="form-label">commentaire</label>
-                <input type="text" class="form-control"  name="media" >
-                </div>
-                <div class="nb-3">
-                <label for="img" class="form-label">image</label>
-                <input type="file" class="form-control"  name="img" >
-                </div>
+                <form  method="post" action="index.php" enctype="multipart/form-data">
+                    <div class="nb-3">
+                        <label for="prix" class="form-label">commentaire</label>
+                        <input type="text" class="form-control"  name="media" >
+                    </div>
+                    <div class="nb-3">
+                        <label for="img" class="form-label">image</label>
+                        <input type="file" class="form-control-file"  name="img" >
+                    </div>
+                    <br>
+                    <div class="user-box">
+                    </div>
                 <br>
-                <div class="user-box">
+                <div class="nb-3">
+                    <button type="submit" class="btn btn-success mb-3" name="submit">Confirm</button>
+                    <button type="button" class="btn btn-danger mb-3" name="annulez">annulez</button>
                 </div>
-            <br>
-            <div class="nb-3">
-                <button type="submit" class="btn btn-success mb-3" name="submit">Confirm</button>
-                <button type="button" class="btn btn-danger mb-3" name="annulez">annulez</button>
-            </div>
         </form>
                     </div>
                     
@@ -181,7 +179,9 @@ if (isset($_POST['submit']) and !empty($_POST['media']) and !empty($_POST['img']
                 $req="SELECT *from posts";                                      
                 $result=mysqli_query($conn,$req);
 
-                
+                $req2= "SELECT * FROM users";
+                 $resp1=mysqli_query($conn,$req2);
+    
 	            
                 if (!$_SESSION["utilisateur"]) {
                     
@@ -220,7 +220,7 @@ if (isset($_POST['submit']) and !empty($_POST['media']) and !empty($_POST['img']
                                 La fuerza es el único lenguaje que el mal entiende. ¡Derrota monstruos para conseguir
                                 muchas recompensas!
                             </div>
-                            <img class="card-img-top rounded-0" src="https://picsum.photos/320/250/?random?image=1" alt="Card image cap">
+                            <img class="card-img-top rounded-0" src="<?php echo "images/".$row['image'] ?>" alt="Card image cap">
                             <div class="card-footer bg-white border-0 p-0">
                                 <div class="d-flex justify-content-between align-items-center py-2 mx-3 border-bottom">
                                     <div>
@@ -230,15 +230,12 @@ if (isset($_POST['submit']) and !empty($_POST['media']) and !empty($_POST['img']
                                 </div>
                                 <div class="d-flex justify-content-between align-items-center my-1">
                                     <div class="col">
-                                       <a href="#?id=<?php echo $row['author_id']; ?>" > <button type="button" class="btn btn-fbook btn-block btn-sm"> <i class="fa fa-thumbs-up"
-                                                aria-hidden="true"></i>j'aime</button></a>
+                                    <a class="btn icon-btn btn-primary" href="#?id=<?php echo $row['author_id']; ?>" > <i class="fa fa-mail-forward"></i><span class="glyphicon btn-glyphicon glyphicon-share img-circle text-info"></span>Share</a>
+                                       
                                     </div>
                                    
                                 </div>
                             </div>
-                            
-                 <textarea class="form-control " placeholder="Votre texte" name="messageaide" id="messg" cols="10" rows=""></textarea>
-                 <a href="#?id=<?php echo $row['author_id']; ?>" class="card-link"><i class="fa fa-send"></i> Comment</a>
                         </div>
                         </form>
                         <?php } }else {
@@ -256,7 +253,7 @@ if (isset($_POST['submit']) and !empty($_POST['media']) and !empty($_POST['img']
                                     <img class="rounded-circle" width="45" src="https://picsum.photos/50/50" alt="">
                                 </div>
                                 <div class="ml-2">
-                                    <div class="h5 m-0"><?php echo $row3['username']?></div>
+                                    <div class="h5 m-0"><?php echo $row3['username']?> </div>
                                     <div class="h7 text-muted"></div>
                                 </div>
                             </div>
@@ -283,7 +280,7 @@ if (isset($_POST['submit']) and !empty($_POST['media']) and !empty($_POST['img']
                                 cum.</h5>
                         </a>
                         <div class="card-body pt-0 pb-2">
-                            <img class="card-img-top rounded-0" src="https://picsum.photos/320/250/?random?image=1" alt="Card image cap">
+                            <img class="card-img-top rounded-0" src="<?php echo "images/".$row['image'] ?>" alt="Card image cap">
                         </div>
 
                         <p class="card-text"><?php echo $row['media']?>
@@ -293,10 +290,13 @@ if (isset($_POST['submit']) and !empty($_POST['media']) and !empty($_POST['img']
                             <a href="https://mega.nz/#!1J01nRIb!lMZ4B_DR2UWi9SRQK5TTzU1PmQpDtbZkMZjAIbv97hU" target="_blank">https://mega.nz/#!1J01nRIb!lMZ4B_DR2UWi9SRQK5TTzU1PmQpDtbZkMZjAIbv97hU</a>
                         </p>
                     </div>
-                    <div class="card-footer">
-                        <a href="#?id=<?php echo $row['author_id']; ?>" class="card-link"><i class="fa fa-gittip"></i> Like</a>
+                    <div class="card-footer"
+                    >
                         
-                        <a href="#?id=<?php echo $row['author_id']; ?>" class="card-link"><i class="fa fa-mail-forward"></i> Share</a>
+                    <a class="btn icon-btn btn-primary"href="#?id=<?php echo $row['author_id']; ?>" id="likeButton" name="like"><i class="fa fa-thumbs-up"
+                                                aria-hidden="true"  id="likeButton" name="like"></i><span class="glyphicon btn-glyphicon glyphicon-thumbs-up img-circle text-primary"></span>Like</a>
+                                                <a class="btn icon-btn btn-primary" href="#?id=<?php echo $row['author_id']; ?>" > <i class="fa fa-mail-forward"></i><span class="glyphicon btn-glyphicon glyphicon-share img-circle text-info"></span>Share</a>
+                        
                     </div>
                  <textarea class="form-control " placeholder="Votre texte" name="messageaide" id="messg" cols="10" rows=""></textarea>
                  <a href="#?id=<?php echo $row['author_id']; ?>" class="card-link"><i class="fa fa-send"></i> Comment</a>
@@ -331,3 +331,42 @@ if (isset($_POST['submit']) and !empty($_POST['media']) and !empty($_POST['img']
             </div>
         </div>
     </div>
+
+ 
+   
+<script>
+  // Écoutez l'événement de clic sur le bouton "J'aime"
+  document.getElementById("likeButton").addEventListener("click", function() {
+    // Vérifiez l'état actuel du bouton
+    var isLiked = this.classList.contains('liked');
+    
+    // Envoyer la requête AJAX ici
+    // Vous pouvez utiliser la bibliothèque jQuery ou la méthode native XMLHttpRequest pour cela
+    // Par exemple, en utilisant jQuery :
+    $.ajax({
+      url: "update_like.php", // L'URL du script PHP qui met à jour les likes
+      type: "POST", // Utilisez la méthode POST pour envoyer les données au serveur
+      data: { 
+        post_id: <?php echo $post_id; ?>,
+        is_liked: !isLiked // Inversez l'état actuel du bouton
+      },
+      success: function(response) {
+        // Traitement de la réponse du serveur (si nécessaire)
+        // Par exemple, vous pouvez rafraîchir l'affichage du nombre de likes ici
+        
+        // Modifiez l'état du bouton en fonction de la réponse
+        var likeButton = document.getElementById("likeButton");
+        likeButton.classList.toggle('liked'); // Inversez la classe CSS "liked"
+        
+        // Mettez à jour le texte du bouton en fonction de l'état actuel
+        if (likeButton.classList.contains('liked')) {
+          likeButton.textContent = 'Je n aime plus';
+        } else {
+          likeButton.textContent = 'Jaime';
+        }
+      }
+    });
+  });
+</script>
+
+
